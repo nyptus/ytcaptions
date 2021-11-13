@@ -10,8 +10,9 @@ def save_captions(link, lang):
     caption_text = caption.generate_srt_captions()
     video_name = yt.title
     str_video_name = str(video_name)
-    str_file_name_clean = "".join(c for c in str_video_name if c.isalpha() or c.isspace()) #удаляем все кроме букв и пробелов
-    file_name = str_file_name_clean.replace(" ", "_") #заменяем пробелы подчеркиваниями
+    str_file_name_clean = "".join(
+        c for c in str_video_name if c.isalpha() or c.isspace())  # удаляем все кроме букв и пробелов
+    file_name = str_file_name_clean.replace(" ", "_")  # заменяем пробелы подчеркиваниями
 
     with open(f'{file_name}_{lang}.txt', 'w') as file:
         file.write(yt.author)
@@ -27,12 +28,14 @@ def save_captions(link, lang):
         for line in caption_text:
             file.write(line)
 
+    print("Не обращай внимания на ошибку - успех наступил!")
 
-def get_avaliable_captions(link):
+
+def get_available_captions(link):
     yt = YouTube(link)
     print(f"Для видео '{yt.title}' доступны субтитры: ")
-    code_list = [] #временный список
-    a = yt.captions.lang_code_index #сохраняем только коды
+    code_list = []  # временный список
+    a = yt.captions.lang_code_index  # сохраняем только коды
     for i in a.keys():
         code_list.append(i)
 
@@ -49,7 +52,7 @@ def get_avaliable_captions(link):
 
 def main():
     link = input("Please enter link for video: ")
-    lang = get_avaliable_captions(link=link)
+    lang = get_available_captions(link=link)
     save_captions(link=link, lang=lang)
 
 
